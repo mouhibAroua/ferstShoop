@@ -159,31 +159,28 @@ each(phons.list,function(element,i){
           var product = document.createElement("div");
           product.className = "donnee";
           product.innerHTML = `
-              <h3>${phone.name}</h3>
+            <h3>${phone.name}</h3>
               <p>${phone.price}DT</p>
-              <button class="addbtn" id="${index}">Add to Cart</button>
+     <button class="addbtn" id="${index}">Add to Cart</button>
           `;
           productList.appendChild(product);
   
           var addBtn = product.querySelector(".addbtn");
-          addBtn.addEventListener("click", function(){ addCart(index)});
+      addBtn.addEventListener("click", function(){ addCart(index)});
       });
   }
   function addCart(i) {
-      var phone = phones[i];
+  var phone = phones[i];
       cart.push(phone);
-      cartTotal += phone.price;
-  
+     cartTotal += phone.price;
       var cartItemsList = document.getElementById("items");
       var cartItem = document.createElement("ul");
-      cartItem.innerHTML = `
+       cartItem.innerHTML = `
           <span>${phone.name}</span>
-          <span>${phone.price}DT</span>
-         
+          <span>${phone.price}DT</span>     
       `;
       cartItemsList.appendChild(cartItem);
-  
-      var cartTotalElement = document.getElementById("total");
+   var cartTotalElement = document.getElementById("total");
       cartTotalElement.textContent = cartTotal.toFixed(2);
   }
   

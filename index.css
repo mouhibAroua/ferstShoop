@@ -74,15 +74,12 @@ border-radius: 8px;
 
 .donnee {
    border: 1px solid;
-  
    text-align: center;
 }
 
 .cart {
    border: 1px solid;
-   padding: 20px;
-   margin-top: 20px;
-   background-color: white;
+    background-color: white;
 }
 
 .cart h2 {
@@ -94,16 +91,10 @@ border-radius: 8px;
    text-align: center;
 }
 
-#items ul {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   margin-bottom: 5px;
-}
+
 
 #btn {
    text-align: center;
-   margin:  auto;
    background-color: blue;
    color: white;
    border-radius: 8px;
@@ -111,4 +102,7 @@ border-radius: 8px;
 
 #btn:hover {
    background-color: black;
+}
+#btn1:hover {
+  background-color: black;
 }
