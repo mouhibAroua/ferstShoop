@@ -15,9 +15,9 @@ function each(array, func) {
   function filter(array, predicate) {
   var acc = [];
   each(array, function (element, index) {
-   // notice we added the index here
+
    if (predicate(element, index)) {
-     // notice we added the index here
+   
      acc.push(element);
    }
   });
@@ -36,71 +36,171 @@ function each(array, func) {
   }
 function generateId(){
     count=0;
-    function (){
+   return function (){
       return  count++;
       
     }
 }
 var id=generateId();
-function phone(name,price,categor,image){
+function phone(name,price,categor,images){
     return{
         name:name,
         price:price,
         categor:categor,
-        image:image,
+        images:images,
         id:id()
     }
 }
-function phones(phon){
+
+function phoness(phon){
     return{
+        phon:phon,
         list:[],
         add:add,
-        filtreCategory:filtreCategory,
-        sortByPrice:sortByPrice
+        categoryFilter:categoryFilter,
+        sortByPrice:sortByPrice,
+        DisplayInformation:DisplayInformation
     }
 }
 var add=function(phon){
     return this.list.push(phon)
 }
-var sortByPrice(pric){
+var sortByPrice=function(price){
     this.list.sort(function(a,b){
         return a.price-b.price
     })
 }
-var filtreCategory(catego){
-    filter(this.list,function(element,i){
-        return catego===element.categor})
+var DisplayInformation=function(category){
+  var tab=[]
+    each(this.list,function(e){
+    if(e.category===category){
+      tab.push(e)
+    }})
+    return tab
+  }
+var categoryFilter = function (category) {
+  
+  return this.list.filter(function (phone) {
+      return phone.category.toLowerCase() === category.toLowerCase();
+  });
+};
+ 
+    
+    var phone1=phone("Iphone 11ProMax",2100,"iphone","image/iphone11VueDeFace.jpg")
+    
+  
+    
+    
+    function display(arr){
+      
+        $("#mouhib1").append(`
+        <img src=${arr.images}>
+        <h4>${arr.name}</h4>
+        <p>${arr.price}</p>
+        <p>${arr.categor}</p>
+        `)
     }
-var phone1=phone("Iphone 11ProMax",2100,"iphone",["iphone11VueDeFace.jpg","iphone11vueDeDos.jpg"])
-var phone2=phone("Iphone 12ProMax",2500,"iphone",["iphone12VueDeFace.jpg","iphone12VueDeDos.jpg"])
-var phone3=phone("Iphone 13ProMax",3100,"iphone",["iphone13vuedeFace.jpg","iphone13vueDeDos.jpg"])
-var phone4=phone("Iphone 14ProMax",3600,"iphone",["iphone14VueDeFace.jpg","iphone14vuedeDos.jpg"])
-var phone5=phone("S21 Ultras",2150,"samsung",["s21vusdeface.jpg","s21vuededos.jpg"])
-var phone6=phone("S22 Ultras",2800,"samsung",["s22vuedeFace.png","s22vuedeDos.png"])
-var phone7=phone("S23 Ultras",3500,"samsung",["s23vuedeface.png","s23vuededos.png"])
-var phon=phones("name")
-function display(arr){
-    $("#12").append(`<h4>${arr.name}</h4>
-    <img class="3" id=${arr.id.toString()} src=${arr.image[0]}>
-    <p>${arr.price}</p>
-    <p>${arr.categor}</p>
-    `)
-}
-each(this.list,function(element,i){
-    return display(e)
+    
+  
+    
+
+var phone2=phone("Iphone 12ProMax",2500,"iphone","image/iphone12VueDeFace.jpg")
+var phone3=phone("Iphone 13ProMax",3100,"iphone","image/iphone13vuedeFace.jpg")
+var phone4=phone("Iphone 14ProMax",3600,"iphone","image/iphone14VueDeFace.jpg")
+var phone5=phone("S21 Ultras",2150,"samsung","image/s21vusdeface.jpg")
+var phone6=phone("S22 Ultras",2800,"samsung","image/s22vuedeFace.png")
+var phone7=phone("S23 Ultras",3500,"samsung","image/s23vuedeface.png")
+var phons=phoness("name")
+
+
+phons.add(phone1);
+phons.add(phone2);
+phons.add(phone7);
+phons.add(phone6);
+phons.add(phone3);
+phons.add(phone4);
+phons.add(phone5);
+
+each(phons.list,function(element,i){
+     display(element)
 })
 
-function changeImg(array){
-        var count=0
-        function nextimage(){
-           count++
-           count=count%array.length
-           return array[count]
-        }
-      return nextimage
-    }
 
-$(".3").on("click"function(){
-    for(i=0;i<phon.list.length;i++)
-})
 
+   
+
+
+    $('#mouhib1').append("<button id='btn'>sort by price</button>")
+    $("#btn").on('click',function(){
+      phons.sortByPrice();
+      $("#mouhib1").empty()
+      each(phons.list,function(e,i){
+        return  display(e)})
+    });
+  
+    var phones = [
+      { name: "Iphone 12ProMax", price: 2500 },
+      { name: "Iphone 13ProMax", price: 3100 },
+      { name: "Iphone 14ProMax", price: 3600 },
+      { name: "S21 Ultras", price: 2150 },
+      { name: "S22 Ultras", price: 2800 },
+      { name: "S23 Ultras", price: 3500 },
+      { name: "Iphone 11ProMax", price: 2100 },
+  
+  
+  ];
+  
+  var cart = [];
+  var cartTotal = 0;
+  function displayProducts() {
+      var productList = document.querySelector(".mouhib");
+  
+      each(phones,function(phone, index) {
+          var product = document.createElement("div");
+          product.className = "donnee";
+          product.innerHTML = `
+              <h3>${phone.name}</h3>
+              <p>${phone.price}DT</p>
+              <button class="addbtn" id="${index}">Add to Cart</button>
+          `;
+          productList.appendChild(product);
+  
+          var addBtn = product.querySelector(".addbtn");
+          addBtn.addEventListener("click", function(){ addCart(index)});
+      });
+  }
+  function addCart(i) {
+      var phone = phones[i];
+      cart.push(phone);
+      cartTotal += phone.price;
+  
+      var cartItemsList = document.getElementById("items");
+      var cartItem = document.createElement("ul");
+      cartItem.innerHTML = `
+          <span>${phone.name}</span>
+          <span>${phone.price}DT</span>
+         
+      `;
+      cartItemsList.appendChild(cartItem);
+  
+      var cartTotalElement = document.getElementById("total");
+      cartTotalElement.textContent = cartTotal.toFixed(2);
+  }
+  
+  function checkout() {
+      alert("Thank you for visiting our site");
+      clearCart();
+  }
+  
+  function clearCart() {
+      cart.length = 0;
+      cartTotal = 0;
+      var cI = document.getElementById("items");
+      cI.innerHTML = "";
+      var cT = document.getElementById("total");
+      cT.textContent = "0";
+  }
+  
+  displayProducts();
+  var checBtn = document.getElementById("btn1");
+  checBtn.addEventListener("click", checkout);
