@@ -3,7 +3,7 @@ h1 {
 margin: auto;
 text-align: center;
     color: blueviolet;
-background-color: beige;
+background-color: yellowgreen;
 width: 400px;
 height: 50px;
 }
@@ -25,15 +25,11 @@ height: 50px;
   }
 
   body{
-   
-    animation: mymove 1s infinite;
+   background-image: url("image/fond2.jpg");
+    
 }
 
-  @keyframes mymove {
-    from {background-color: yellow;}
-    to {background-color: red;}
-   
-  }
+ 
   h4{
     text-align: center;
     border-inline: double;
